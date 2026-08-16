@@ -294,174 +294,112 @@ touch-action: manipulation;
 .game-card:hover .game-icon-wrap { transform: scale(1.1) rotate(-3deg); }
 .game-icon-wrap svg { width: 100%; height: 100%; }
 .game-name { font-size: clamp(11px, 3vw, 13px); font-weight: 800; color: var(--text); }
-.flashcard-game { max-width: 560px; margin: 0 auto; }
-
-/* ============================================= */
-/* DUAL CARD LAYOUT (NEW)                        */
-/* ============================================= */
+.flashcard-game { max-width: 660px; margin: 0 auto; }
 .dual-card-container {
-  display: flex;
-  gap: clamp(12px, 3vw, 20px);
-  justify-content: center;
-  margin: 20px 0 10px;
-  min-height: 260px;
-  width: 100%;
+display: flex;
+flex-direction: row;
+gap: 20px;
+width: 92%;
+max-width: 600px;
+margin: 28px auto;
+min-height: 340px;
+-webkit-user-select: none;
+user-select: none;
+-webkit-touch-callout: none;
+justify-content: center;
+align-items: stretch;
 }
-.card-french,
-.card-arabic {
-  flex: 1;
-  min-width: 0;
-  border-radius: 28px;
-  padding: clamp(18px, 4vw, 28px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  cursor: pointer;
-  min-height: 240px;
-  box-shadow: 0 12px 40px rgba(102,126,234,0.20), 0 4px 12px rgba(0,0,0,0.06);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-  -webkit-tap-highlight-color: transparent;
+@media (max-width: 600px) {
+.dual-card-container {
+flex-direction: column;
+align-items: center;
 }
-.card-french::before,
-.card-arabic::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 50%),
-              radial-gradient(circle at 80% 70%, rgba(255,255,255,0.06) 0%, transparent 40%);
-  pointer-events: none;
 }
-.card-french {
-  background: linear-gradient(145deg, #667EEA 0%, #764BA2 100%);
-  color: white;
+.dual-card {
+flex: 1;
+min-width: 200px;
+max-width: 280px;
+width: 100%;
+min-height: 340px;
+position: relative;
+border-radius: 28px;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: clamp(24px, 6vw, 40px);
+box-shadow: 0 25px 70px rgba(102,126,234,0.25), 0 10px 30px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.15);
+overflow: hidden;
+cursor: pointer;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-.card-french:active { transform: scale(0.97); }
-.card-arabic {
-  background: linear-gradient(145deg, #F093FB 0%, #F5576C 100%);
-  color: white;
-  animation: fadeInCard 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+.dual-card::before {
+content: '';
+position: absolute; inset: 0;
+background: radial-gradient(circle at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 50%),
+radial-gradient(circle at 80% 70%, rgba(255,255,255,0.08) 0%, transparent 40%);
+pointer-events: none;
 }
-.card-arabic.hidden { display: none; }
-.card-arabic:active { transform: scale(0.97); }
-@keyframes fadeInCard {
-  from { opacity: 0; transform: scale(0.92) translateY(6px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+.dual-card-french {
+background: linear-gradient(145deg, #667EEA 0%, #764BA2 100%);
+color: white;
 }
-.card-french .card-top-actions,
-.card-arabic .card-top-actions {
-  position: absolute; top: 14px; left: 14px; right: 14px;
-  display: flex; justify-content: space-between; align-items: center; z-index: 10;
-  direction: ltr;
-  pointer-events: none;
+.dual-card-arabic {
+background: linear-gradient(145deg, #F093FB 0%, #F5576C 100%);
+color: white;
+animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-.card-french .card-top-actions > *,
-.card-arabic .card-top-actions > * { pointer-events: auto; }
-.card-french .card-chip,
-.card-arabic .card-chip {
-  background: rgba(0,0,0,0.25); color: white; border-radius: 999px;
-  padding: 4px 14px; font-size: 11px; font-weight: 800;
-  backdrop-filter: blur(8px);
+.dual-card:active {
+transform: scale(0.97);
 }
-.card-french .card-round-btn,
-.card-arabic .card-round-btn {
-  width: 42px; height: 42px; border-radius: 50%; border: none; cursor: pointer;
-  background: rgba(255,255,255,0.20); color: white; font-size: 16px;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.25s; touch-action: manipulation;
-  backdrop-filter: blur(8px);
-  position: relative; z-index: 15;
+.card-word, .card-translation {
+font-size: clamp(32px, 8vw, 52px);
+font-weight: 900; text-align: center; word-break: break-word;
+z-index: 2; text-shadow: 0 4px 16px rgba(0,0,0,0.25);
+line-height: 1.2; padding: 0 12px;
 }
-.card-french .card-round-btn:hover,
-.card-arabic .card-round-btn:hover {
-  background: rgba(255,255,255,0.35); transform: scale(1.08);
+.card-lang-label {
+font-size: 13px; opacity: 0.92; margin-bottom: 16px; font-weight: 700;
+padding: 6px 16px; background: rgba(255,255,255,0.15);
+backdrop-filter: blur(10px); border-radius: 20px;
+letter-spacing: 0.05em; z-index: 2;
 }
-.card-french .card-round-btn:active,
-.card-arabic .card-round-btn:active { transform: scale(0.92); }
-.card-french .card-round-btn.saved,
-.card-arabic .card-round-btn.saved { background: rgba(252,211,77,0.35); color: #FCD34D; }
-.card-french .card-lang-label,
-.card-arabic .card-lang-label {
-  font-size: 12px; opacity: 0.92; margin-bottom: 12px; font-weight: 700;
-  padding: 4px 14px; background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px); border-radius: 20px;
-  letter-spacing: 0.05em; z-index: 2;
-}
-.card-french .card-word,
-.card-arabic .card-translation {
-  font-size: clamp(24px, 6.5vw, 44px);
-  font-weight: 900; text-align: center; word-break: break-word;
-  z-index: 2; text-shadow: 0 4px 16px rgba(0,0,0,0.25);
-  line-height: 1.2; padding: 0 8px;
-}
-.card-french .card-hint {
-  font-size: 11px; opacity: 0.75; margin-top: 18px; font-weight: 600;
-  letter-spacing: 0.08em; z-index: 2;
-  animation: pulse 2s ease-in-out infinite;
-}
-.card-arabic .card-hint {
-  font-size: 11px; opacity: 0.65; margin-top: 14px; font-weight: 600;
-  letter-spacing: 0.08em; z-index: 2;
+.card-hint {
+font-size: 12px; opacity: 0.75; margin-top: 24px; font-weight: 600;
+letter-spacing: 0.08em; text-transform: uppercase; z-index: 2;
+animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse {
-  0%, 100% { opacity: 0.75; transform: translateY(0); }
-  50% { opacity: 0.4; transform: translateY(-2px); }
+0%, 100% { opacity: 0.75; transform: translateY(0); }
+50% { opacity: 0.4; transform: translateY(-2px); }
 }
-/* ---------- responsiveness for dual cards ---------- */
-@media (max-width: 480px) {
-  .dual-card-container {
-    flex-direction: column;
-    gap: 14px;
-    min-height: auto;
-  }
-  .card-french,
-  .card-arabic {
-    min-height: 180px;
-    padding: clamp(14px, 3.5vw, 20px);
-    border-radius: 22px;
-  }
-  .card-french .card-word,
-  .card-arabic .card-translation {
-    font-size: clamp(22px, 7vw, 34px);
-  }
-  .card-french .card-round-btn,
-  .card-arabic .card-round-btn {
-    width: 36px; height: 36px; font-size: 14px;
-  }
-  .card-french .card-top-actions,
-  .card-arabic .card-top-actions {
-    top: 10px; left: 10px; right: 10px;
-  }
+.card-top-actions {
+position: absolute; top: 16px; left: 16px; right: 16px;
+display: flex; justify-content: space-between; align-items: center; z-index: 10;
+direction: ltr;
+pointer-events: none;
 }
-@media (max-width: 380px) {
-  .card-french,
-  .card-arabic {
-    min-height: 150px;
-    padding: 12px;
-    border-radius: 18px;
-  }
-  .card-french .card-word,
-  .card-arabic .card-translation {
-    font-size: clamp(18px, 6vw, 28px);
-  }
-  .card-french .card-round-btn,
-  .card-arabic .card-round-btn {
-    width: 32px; height: 32px; font-size: 12px;
-  }
-  .card-french .card-lang-label,
-  .card-arabic .card-lang-label {
-    font-size: 10px; padding: 2px 10px; margin-bottom: 8px;
-  }
-  .card-french .card-hint,
-  .card-arabic .card-hint {
-    font-size: 9px; margin-top: 10px;
-  }
+.card-top-actions > * { pointer-events: auto; }
+.card-chip {
+background: rgba(0,0,0,0.3); color: white; border-radius: 999px;
+padding: 6px 16px; font-size: 12px; font-weight: 800;
+backdrop-filter: blur(10px);
 }
-
+.card-round-btn {
+width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer;
+background: rgba(255,255,255,0.25); color: white; font-size: 18px;
+display: flex; align-items: center; justify-content: center;
+transition: all 0.25s; touch-action: manipulation;
+backdrop-filter: blur(10px);
+position: relative;
+z-index: 15;
+}
+.card-round-btn:hover { background: rgba(255,255,255,0.4); transform: scale(1.1); }
+.card-round-btn:active { transform: scale(0.95); }
+.card-round-btn.saved { background: rgba(252,211,77,0.4); color: #FCD34D; }
 .card-dots {
 display: flex; justify-content: center; gap: 6px;
-margin: 16px auto 12px; max-width: 90%; flex-wrap: wrap;
+margin: 20px auto; max-width: 90%; flex-wrap: wrap;
 }
 .card-dot {
 width: 8px; height: 8px; border-radius: 50%;
@@ -475,7 +413,7 @@ box-shadow: 0 0 10px rgba(102,126,234,0.6);
 .card-dot.wrong { background: var(--danger); }
 .answer-buttons {
 display: flex; justify-content: space-between; gap: 16px;
-margin-top: 20px; direction: ltr;
+margin-top: 28px; direction: ltr;
 }
 .answer-buttons .btn {
 flex: 1; padding: 18px 20px; font-size: 16px; font-weight: 800;
@@ -502,99 +440,99 @@ box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 /* ============================================= */
 /* IMPROVED MATCHING GAME STYLES                 */
 /* ============================================= */
-.match-grid { 
-  display: grid; 
-  grid-template-columns: 1fr 1fr; 
-  gap: clamp(14px, 4vw, 24px); 
-  margin-top: 10px;
+.match-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: clamp(14px, 4vw, 24px);
+margin-top: 10px;
 }
 .match-column {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(12px, 3vw, 18px);
+display: flex;
+flex-direction: column;
+gap: clamp(12px, 3vw, 18px);
 }
-.match-btn { 
-  min-height: 90px; 
-  border-radius: 20px; 
-  border: 2px solid var(--input-border); 
-  background: var(--glass-bg-strong); 
-  font-weight: 800; 
-  cursor: pointer; 
-  padding: 18px 14px; 
-  font-size: clamp(15px, 4.2vw, 18px); 
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-  color: var(--text); 
-  touch-action: manipulation; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  position: relative;
-  box-shadow: 0 4px 14px rgba(102, 126, 234, 0.08);
-  text-align: center;
-  line-height: 1.3;
+.match-btn {
+min-height: 90px;
+border-radius: 20px;
+border: 2px solid var(--input-border);
+background: var(--glass-bg-strong);
+font-weight: 800;
+cursor: pointer;
+padding: 18px 14px;
+font-size: clamp(15px, 4.2vw, 18px);
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+color: var(--text);
+touch-action: manipulation;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 6px;
+position: relative;
+box-shadow: 0 4px 14px rgba(102, 126, 234, 0.08);
+text-align: center;
+line-height: 1.3;
 }
-.match-btn:hover:not(.matched) { 
-  transform: translateY(-3px); 
-  box-shadow: 0 10px 24px rgba(102, 126, 234, 0.18); 
-  border-color: var(--primary);
+.match-btn:hover:not(.matched) {
+transform: translateY(-3px);
+box-shadow: 0 10px 24px rgba(102, 126, 234, 0.18);
+border-color: var(--primary);
 }
-.match-btn.selected { 
-  border-color: var(--primary); 
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.12));
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25), 0 10px 24px rgba(102, 126, 234, 0.2);
-  transform: scale(1.03);
+.match-btn.selected {
+border-color: var(--primary);
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.12));
+box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25), 0 10px 24px rgba(102, 126, 234, 0.2);
+transform: scale(1.03);
 }
-.match-btn.matched { 
-  background: linear-gradient(135deg, var(--success-light), rgba(16, 185, 129, 0.08));
-  border-color: var(--success); 
-  opacity: 0.55; 
-  cursor: default; 
-  pointer-events: none;
-  transform: scale(0.94);
-  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+.match-btn.matched {
+background: linear-gradient(135deg, var(--success-light), rgba(16, 185, 129, 0.08));
+border-color: var(--success);
+opacity: 0.55;
+cursor: default;
+pointer-events: none;
+transform: scale(0.94);
+box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
 }
-.match-lang-flag { 
-  font-size: 22px; 
-  line-height: 1;
-  margin-bottom: 2px;
+.match-lang-flag {
+font-size: 22px;
+line-height: 1;
+margin-bottom: 2px;
 }
-.match-text { 
-  word-break: break-word; 
-  text-align: center; 
-  line-height: 1.35;
-  font-weight: 800;
-  padding: 0 4px;
+.match-text {
+word-break: break-word;
+text-align: center;
+line-height: 1.35;
+font-weight: 800;
+padding: 0 4px;
 }
 .match-actions {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  display: flex;
-  gap: 4px;
-  z-index: 5;
-  pointer-events: auto;
+position: absolute;
+top: 8px;
+right: 8px;
+display: flex;
+gap: 4px;
+z-index: 5;
+pointer-events: auto;
 }
 .match-actions .icon-btn {
-  width: 30px;
-  height: 30px;
-  min-width: 30px;
-  min-height: 30px;
-  padding: 0;
-  font-size: 13px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  border-radius: 50%;
+width: 30px;
+height: 30px;
+min-width: 30px;
+min-height: 30px;
+padding: 0;
+font-size: 13px;
+background: rgba(255, 255, 255, 0.85);
+border: 1px solid rgba(0, 0, 0, 0.05);
+border-radius: 50%;
 }
-[data-theme="dark"] .match-actions .icon-btn { 
-  background: rgba(55, 65, 81, 0.9); 
-  border-color: rgba(255, 255, 255, 0.1);
+[data-theme="dark"] .match-actions .icon-btn {
+background: rgba(55, 65, 81, 0.9);
+border-color: rgba(255, 255, 255, 0.1);
 }
 .match-actions .icon-btn:hover {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
+background: var(--primary);
+color: white;
+border-color: var(--primary);
 }
 .results-box { text-align: center; padding: 30px 24px; }
 .results-emoji { font-size: clamp(48px, 12vw, 64px); margin-bottom: 10px; }
@@ -796,6 +734,7 @@ transform: translateY(0) scale(0.98);
 .app { padding: 16px; padding-bottom: calc(110px + var(--safe-bottom)); }
 .profile-card { padding: 22px; }
 .games-grid { gap: 12px; }
+.dual-card-container { width: 95%; min-height: 320px; }
 .answer-buttons .btn { padding: 16px 18px; font-size: 15px; }
 }
 @media (max-width: 430px) {
@@ -805,6 +744,10 @@ transform: translateY(0) scale(0.98);
 .avatar { width: 70px; height: 70px; font-size: 28px; }
 .games-grid { gap: 10px; }
 .game-card { padding: 14px 8px; }
+.dual-card-container { width: 98%; min-height: 300px; }
+.dual-card { min-height: 300px; padding: 20px 16px; }
+.card-word, .card-translation { font-size: clamp(28px, 8vw, 40px); }
+.card-round-btn { width: 42px; height: 42px; }
 .answer-buttons { gap: 10px; }
 .answer-buttons .btn { padding: 14px 14px; font-size: 14px; min-height: 54px; }
 .modal { padding: 20px; }
@@ -815,6 +758,11 @@ transform: translateY(0) scale(0.98);
 @media (max-width: 390px) {
 .app { padding: 12px; }
 .profile-card { padding: 16px; }
+.dual-card-container { min-height: 280px; }
+.dual-card { min-height: 280px; }
+.card-word, .card-translation { font-size: clamp(26px, 7.5vw, 38px); }
+.card-lang-label { font-size: 11px; padding: 4px 12px; }
+.card-hint { font-size: 10px; margin-top: 16px; }
 .btn { padding: 12px 16px; }
 }
 @media (max-width: 375px) {
@@ -822,6 +770,9 @@ transform: translateY(0) scale(0.98);
 .games-grid { gap: 8px; }
 .game-name { font-size: 11px; }
 .game-icon-wrap { width: 42px; height: 42px; }
+.dual-card-container { min-height: 270px; }
+.dual-card { min-height: 270px; }
+.card-top-actions { top: 12px; left: 12px; right: 12px; }
 .answer-buttons { gap: 8px; }
 .answer-buttons .btn { padding: 12px 12px; font-size: 13px; min-height: 50px; }
 .year-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
@@ -831,6 +782,11 @@ transform: translateY(0) scale(0.98);
 .profile-card { padding: 14px; }
 .profile-greeting { font-size: 16px; }
 .avatar { width: 60px; height: 60px; font-size: 24px; }
+.dual-card-container { min-height: 250px; width: 100%; }
+.dual-card { min-height: 250px; }
+.card-word, .card-translation { font-size: clamp(22px, 7vw, 32px); }
+.dual-card { padding: 16px 12px; }
+.card-round-btn { width: 38px; height: 38px; font-size: 15px; }
 .answer-buttons .btn { padding: 10px 10px; font-size: 12px; min-height: 48px; gap: 4px; }
 .games-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
 .game-card { padding: 10px 6px; min-height: 40px; }
@@ -843,9 +799,11 @@ transform: translateY(0) scale(0.98);
 }
 @media (min-width: 768px) {
 .games-grid { grid-template-columns: repeat(4, 1fr); }
+.dual-card-container { width: 70%; max-width: 600px; }
 }
 @media (min-width: 1024px) {
 .app { padding: 32px; }
+.dual-card-container { max-width: 650px; }
 }
 /* ============================================= */
 /* ENHANCED MOBILE FIXES & BUG RESOLUTIONS       */
@@ -854,6 +812,8 @@ transform: translateY(0) scale(0.98);
 .field input, .field select, .dropdown-search, .spelling-input { font-size: 16px !important; }
 .bottom-nav-premium { bottom: calc(12px + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px); width: calc(100% - 24px); max-width: 400px; }
 .app { padding-bottom: calc(100px + env(safe-area-inset-bottom, 0px)); }
+.dual-card-container { min-height: 280px; }
+.dual-card { min-height: 280px; }
 .answer-buttons { flex-direction: row; gap: 12px; }
 .answer-buttons .btn { padding: 14px 10px; font-size: 15px; min-height: 52px; }
 .dropdown-menu { max-height: 60vh; bottom: auto; top: 100%; }
@@ -863,30 +823,30 @@ transform: translateY(0) scale(0.98);
 .match-text { font-size: clamp(13px, 3.5vw, 15px); }
 }
 @media (max-width: 400px) {
-.match-grid { 
-  grid-template-columns: 1fr 1fr; 
-  gap: 10px;
+.match-grid {
+grid-template-columns: 1fr 1fr;
+gap: 10px;
 }
 .match-column {
-  gap: 10px;
+gap: 10px;
 }
-.match-btn { 
-  min-height: 75px; 
-  font-size: 14px; 
-  padding: 12px 8px;
+.match-btn {
+min-height: 75px;
+font-size: 14px;
+padding: 12px 8px;
 }
 .match-lang-flag { font-size: 17px; }
 .match-actions .icon-btn {
-  width: 26px;
-  height: 26px;
-  min-width: 26px;
-  min-height: 26px;
-  font-size: 11px;
+width: 26px;
+height: 26px;
+min-width: 26px;
+min-height: 26px;
+font-size: 11px;
 }
 .match-actions {
-  top: 5px;
-  right: 5px;
-  gap: 3px;
+top: 5px;
+right: 5px;
+gap: 3px;
 }
 }
 @media (max-width: 380px) {
@@ -895,33 +855,33 @@ transform: translateY(0) scale(0.98);
 .game-title { font-size: 14px; }
 .game-subtitle { font-size: 11px; }
 .match-grid {
-  grid-template-columns: 1fr;
-  gap: 10px;
+grid-template-columns: 1fr;
+gap: 10px;
 }
 .match-column {
-  gap: 10px;
+gap: 10px;
 }
 .match-btn {
-  min-height: 65px;
-  flex-direction: row;
-  gap: 10px;
-  padding: 12px 16px;
+min-height: 65px;
+flex-direction: row;
+gap: 10px;
+padding: 12px 16px;
 }
 .match-lang-flag { font-size: 20px; margin-bottom: 0; }
 .match-actions {
-  position: static;
-  margin-left: auto;
+position: static;
+margin-left: auto;
 }
 }
 /* ============================================= */
 /* MATCHING BOXES REDUCED BY 50%                 */
 /* ============================================= */
 .match-btn {
-  min-height: 45px !important;
-  padding: 9px 7px !important;
-  font-size: clamp(11px, 2.1vw, 13px) !important;
-  border-radius: 14px !important;
-  gap: 3px !important;
+min-height: 45px !important;
+padding: 9px 7px !important;
+font-size: clamp(11px, 2.1vw, 13px) !important;
+border-radius: 14px !important;
+gap: 3px !important;
 }
 .match-lang-flag { font-size: 14px !important; }
 .match-text { font-size: inherit; }
@@ -955,9 +915,9 @@ const LANGS = [
 ];
 const getLang = (code) => LANGS.find(l => l.code === code) || LANGS[1];
 const LOCALES = {
-ar: { appName: "VOCAflow Pro", tagline: "تعلم الكلمات بطريقة ممتعة ✨", selectSet: "اختر مجموعة", createSet: "إنشاء مجموعة جديدة", search: "ابحث...", edit: "تعديل", delete: "حذف", cancel: "إلغاء", save: "حفظ", setName: "اسم المجموعة", firstLang: "اللغة الأولى", secondLang: "اللغة الثانية", games: "الألعاب", gamesDesc: "اختر لعبتك وابدأ اللعب! 🚀", flashcards: "البطاقات", mcq: "اختيار من متعدد", spelling: "الإملاء", matching: "المطابقة", sanctuary: "ملجأك الآمن", sanctuarySubtitle: "كلمات ثمينة بأمان", preciousWords: "كلمات ثمينة", preciousWordSingular: "كلمة ثمينة", playSanctuary: "العب بالملجأ", guest: "ضيف", guestNote: "البيانات تُحفظ محلياً فقط.", welcomeBack: "أهلاً بعودتك", welcomeGuest: "أهلاً بك", level: "المستوى", today: "اليوم", saved: "محفوظة", settings: "الإعدادات", logout: "تسجيل الخروج", login: "تسجيل الدخول", name: "الاسم", email: "البريد", close: "إغلاق", correct: "صحيح", wrong: "خطأ", results: "النتائج", retry: "إعادة الكل", retryWrong: "إعادة الخاطئ فقط", home: "الرئيسية", noSet: "لا توجد مجموعات", noWords: "لا توجد كلمات", needSelectSet: "اختر مجموعة أولاً", created: "تم إنشاء المجموعة 🎉", deleted: "تم الحذف", savedMsg: "تم الحفظ ✓", addWord: "إضافة كلمة", word: "الكلمة", translation: "الترجمة", add: "إضافة", noSaved: "لا توجد كلمات محفوظة", tapToFlip: "اضغط للإظهار", check: "تحقق", typeWord: "اكتب الكلمة...", listenWrite: "استمع واكتب الكلمة", matchPairs: "طابق الكلمات", time: "الوقت", score: "النقاط", correctAnswers: "الإجابات الصحيحة", wrongWords: "الكلمات الخاطئة", excellent: "ممتاز! 🌟", good: "جيد جداً! 👏", fair: "جيد! 👍", tryAgain: "حاول مجدداً 💪", msgExcellent: "أنت نجم! ✨", msgGood: "عمل رائع! 🎯", msgFair: "مجهود جيد 📚", msgTryAgain: "لا تستسلم! 💪", of: "من", card: "بطاقة", question: "سؤال", words: "كلمات", confirmDeleteSet: "حذف هذه المجموعة؟", confirmDeleteWord: "حذف هذه الكلمة؟", back: "رجوع", editor: "المحرر", translating: "جاري الترجمة...", darkMode: "الوضع الليلي", lightMode: "الوضع النهاري", theme: "المظهر", voiceSettings: "إعدادات الصوت", speechRate: "سرعة النطق", pitch: "النبرة", language: "اللغة", exportData: "تصدير البيانات", importData: "استيراد البيانات", resetAll: "حذف جميع البيانات", confirmReset: "سيتم حذف جميع البيانات!", dataExported: "تم التصدير ✓", dataImported: "تم الاستيراد ✓", invalidFile: "ملف غير صالح", stats: "الإحصائيات", annualDetails: "التفاصيل السنوية", weeklySummary: "📚 {words} كلمة هذا الأسبوع · ⏱ {time}", wordsThisYear: "كلمة هذا العام", timeThisYear: "الوقت هذا العام", daysStreak: "يوم متتالي", reviewedWords: "كلمات مراجعة", newWords: "كلمات جديدة", masteredWords: "كلمات مُتقنة", timeSpent: "الوقت المستغرق", minutes: "دقيقة", totalWords: "إجمالي الكلمات", totalTime: "إجمالي الوقت", changePic: "تغيير الصورة", errorOccurred: "حدث خطأ", wordsAdded: "كلمات مضافة", gamesPlayed: "ألعاب لُعبت", accuracy: "الدقة", streak: "أيام متتالية", noActivity: "لا يوجد نشاط بعد", noActivityDesc: "ابدأ بمراجعة البطاقات لرؤية إحصائياتك الحقيقية!", reviewedToday: "تمت مراجعته اليوم", translate: "ترجمة تلقائية", translatedSuccess: "تمت الترجمة ✓", translationFailed: "فشل الترجمة" },
-en: { appName: "VOCAflow Pro", tagline: "Learn words the fun way ✨", selectSet: "Select Set", createSet: "Create New Set", search: "Search...", edit: "Edit", delete: "Delete", cancel: "Cancel", save: "Save", setName: "Set name", firstLang: "First language", secondLang: "Second language", games: "Games", gamesDesc: "Choose your game and start playing! 🚀", flashcards: "Flashcards", mcq: "Multiple Choice", spelling: "Spelling", matching: "Matching", sanctuary: "Your Sanctuary", sanctuarySubtitle: "Precious words in safety", preciousWords: "precious words", preciousWordSingular: "precious word", playSanctuary: "Play Sanctuary", guest: "Guest", guestNote: "Data saved locally only.", welcomeBack: "Welcome back", welcomeGuest: "Welcome", level: "Level", today: "Today", saved: "Saved", settings: "Settings", logout: "Logout", login: "Login", name: "Name", email: "Email", close: "Close", correct: "Correct", wrong: "Wrong", results: "Results", retry: "Retry All", retryWrong: "Retry Wrong Only", home: "Home", noSet: "No sets", noWords: "No words", needSelectSet: "Please select a set first", created: "Set created 🎉", deleted: "Deleted", savedMsg: "Saved ✓", addWord: "Add word", word: "Word", translation: "Translation", add: "Add", noSaved: "No saved words", tapToFlip: "Tap to show", check: "Check", typeWord: "Type the word...", listenWrite: "Listen and write", matchPairs: "Match the pairs", time: "Time", score: "Score", correctAnswers: "Correct answers", wrongWords: "Wrong words", excellent: "Excellent! 🌟", good: "Very good! 👏", fair: "Good! 👍", tryAgain: "Try again 💪", msgExcellent: "You're a star! ✨", msgGood: "Great job! 🎯", msgFair: "Good effort 📚", msgTryAgain: "Don't give up! 💪", of: "of", card: "Card", question: "Question", words: "words", confirmDeleteSet: "Delete this set?", confirmDeleteWord: "Delete this word?", back: "Back", editor: "Editor", translating: "Translating...", darkMode: "Dark Mode", lightMode: "Light Mode", theme: "Theme", voiceSettings: "Voice Settings", speechRate: "Speech Rate", pitch: "Pitch", language: "Language", exportData: "Export Data", importData: "Import Data", resetAll: "Reset All Data", confirmReset: "Delete ALL data?", dataExported: "Data exported ✓", dataImported: "Data imported ✓", invalidFile: "Invalid file", stats: "Stats", annualDetails: "Annual Details", weeklySummary: "📚 {words} words this week · ⏱ {time}", wordsThisYear: "words this year", timeThisYear: "time this year", daysStreak: "days", reviewedWords: "Reviewed words", newWords: "New words", masteredWords: "Mastered words", timeSpent: "Time spent", minutes: "min", totalWords: "Total Words", totalTime: "Total Time", changePic: "Change Picture", errorOccurred: "An error occurred", wordsAdded: "Words Added", gamesPlayed: "Games Played", accuracy: "Accuracy", streak: "Day Streak", noActivity: "No activity yet", noActivityDesc: "Start reviewing cards to see your real stats here!", reviewedToday: "Reviewed today", translate: "Auto Translate", translatedSuccess: "Translated ✓", translationFailed: "Translation failed" },
-fr: { appName: "VOCAflow Pro", tagline: "Apprenez les mots ✨", selectSet: "Choisir", createSet: "Créer", search: "Rechercher...", edit: "Modifier", delete: "Supprimer", cancel: "Annuler", save: "Enregistrer", setName: "Nom", firstLang: "Première langue", secondLang: "Deuxième langue", games: "Jeux", gamesDesc: "Choisissez votre jeu ! 🚀", flashcards: "Cartes", mcq: "QCM", spelling: "Orthographe", matching: "Associer", sanctuary: "Sanctuaire", sanctuarySubtitle: "Mots précieux", preciousWords: "mots précieux", preciousWordSingular: "mot précieux", playSanctuary: "Jouer", guest: "Invité", guestNote: "Données locales.", welcomeBack: "Bon retour", welcomeGuest: "Bienvenue", level: "Niveau", today: "Aujourd'hui", saved: "Sauvegardé", settings: "Paramètres", logout: "Déconnexion", login: "Connexion", name: "Nom", email: "Email", close: "Fermer", correct: "Correct", wrong: "Faux", results: "Résultats", retry: "Recommencer", retryWrong: "Incorrects", home: "Accueil", noSet: "Aucun ensemble", noWords: "Aucun mot", needSelectSet: "Sélectionnez un ensemble", created: "Créé 🎉", deleted: "Supprimé", savedMsg: "Enregistré ✓", addWord: "Ajouter", word: "Mot", translation: "Traduction", add: "Ajouter", noSaved: "Aucun mot", tapToFlip: "Afficher", check: "Vérifier", typeWord: "Écrivez...", listenWrite: "Écoutez et écrivez", matchPairs: "Associez", time: "Temps", score: "Score", correctAnswers: "Bonnes réponses", wrongWords: "Incorrects", excellent: "Excellent ! 🌟", good: "Très bien ! 👏", fair: "Bien ! 👍", tryAgain: "Réessayez 💪", msgExcellent: "Vous êtes une star !", msgGood: "Bon travail !", msgFair: "Bon effort", msgTryAgain: "N'abandonnez pas !", of: "de", card: "Carte", question: "Question", words: "mots", confirmDeleteSet: "Supprimer ?", confirmDeleteWord: "Supprimer ?", back: "Retour", editor: "Éditeur", translating: "Traduction...", darkMode: "Nuit", lightMode: "Jour", theme: "Thème", voiceSettings: "Voix", speechRate: "Vitesse", pitch: "Tonalité", language: "Langue", exportData: "Exporter", importData: "Importer", resetAll: "Tout effacer", confirmReset: "Tout effacer ?", dataExported: "Exporté ✓", dataImported: "Importé ✓", invalidFile: "Invalide", stats: "Stats", annualDetails: "Détails annuels", weeklySummary: "📚 {words} mots cette semaine · ⏱ {time}", wordsThisYear: "mots cette année", timeThisYear: "temps cette année", daysStreak: "jours", reviewedWords: "Mots révisés", newWords: "Nouveaux mots", masteredWords: "Mots maîtrisés", timeSpent: "Temps passé", minutes: "min", totalWords: "Total", totalTime: "Temps Total", changePic: "Changer", errorOccurred: "Erreur", wordsAdded: "Mots ajoutés", gamesPlayed: "Parties jouées", accuracy: "Précision", streak: "Jours consécutifs", noActivity: "Aucune activité", noActivityDesc: "Commencez à réviser pour voir vos vraies stats !", reviewedToday: "Révisés aujourd'hui", translate: "Traduire", translatedSuccess: "Traduit ✓", translationFailed: "Échec de la traduction" }
+ar: { appName: "VOCAflow Pro", tagline: "تعلم الكلمات بطريقة ممتعة ✨", selectSet: "اختر مجموعة", createSet: "إنشاء مجموعة جديدة", search: "ابحث...", edit: "تعديل", delete: "حذف", cancel: "إلغاء", save: "حفظ", setName: "اسم المجموعة", firstLang: "اللغة الأولى", secondLang: "اللغة الثانية", games: "الألعاب", gamesDesc: "اختر لعبتك وابدأ اللعب! 🚀", flashcards: "البطاقات", mcq: "اختيار من متعدد", spelling: "الإملاء", matching: "المطابقة", sanctuary: "ملجأك الآمن", sanctuarySubtitle: "كلمات ثمينة بأمان", preciousWords: "كلمات ثمينة", preciousWordSingular: "كلمة ثمينة", playSanctuary: "العب بالملجأ", guest: "ضيف", guestNote: "البيانات تُحفظ محلياً فقط.", welcomeBack: "أهلاً بعودتك", welcomeGuest: "أهلاً بك", level: "المستوى", today: "اليوم", saved: "محفوظة", settings: "الإعدادات", logout: "تسجيل الخروج", login: "تسجيل الدخول", name: "الاسم", email: "البريد", close: "إغلاق", correct: "صحيح", wrong: "خطأ", results: "النتائج", retry: "إعادة الكل", retryWrong: "إعادة الخاطئ فقط", home: "الرئيسية", noSet: "لا توجد مجموعات", noWords: "لا توجد كلمات", needSelectSet: "اختر مجموعة أولاً", created: "تم إنشاء المجموعة 🎉", deleted: "تم الحذف", savedMsg: "تم الحفظ ✓", addWord: "إضافة كلمة", word: "الكلمة", translation: "الترجمة", add: "إضافة", noSaved: "لا توجد كلمات محفوظة", tapToFlip: "اضغط للتقليب", check: "تحقق", typeWord: "اكتب الكلمة...", listenWrite: "استمع واكتب الكلمة", matchPairs: "طابق الكلمات", time: "الوقت", score: "النقاط", correctAnswers: "الإجابات الصحيحة", wrongWords: "الكلمات الخاطئة", excellent: "ممتاز! 🌟", good: "جيد جداً! 👏", fair: "جيد! 👍", tryAgain: "حاول مجدداً 💪", msgExcellent: "أنت نجم! ✨", msgGood: "عمل رائع! 🎯", msgFair: "مجهود جيد 📚", msgTryAgain: "لا تستسلم! 💪", of: "من", card: "بطاقة", question: "سؤال", words: "كلمات", confirmDeleteSet: "حذف هذه المجموعة؟", confirmDeleteWord: "حذف هذه الكلمة؟", back: "رجوع", editor: "المحرر", translating: "جاري الترجمة...", darkMode: "الوضع الليلي", lightMode: "الوضع النهاري", theme: "المظهر", voiceSettings: "إعدادات الصوت", speechRate: "سرعة النطق", pitch: "النبرة", language: "اللغة", exportData: "تصدير البيانات", importData: "استيراد البيانات", resetAll: "حذف جميع البيانات", confirmReset: "سيتم حذف جميع البيانات!", dataExported: "تم التصدير ✓", dataImported: "تم الاستيراد ✓", invalidFile: "ملف غير صالح", stats: "الإحصائيات", annualDetails: "التفاصيل السنوية", weeklySummary: "📚 {words} كلمة هذا الأسبوع · ⏱ {time}", wordsThisYear: "كلمة هذا العام", timeThisYear: "الوقت هذا العام", daysStreak: "يوم متتالي", reviewedWords: "كلمات مراجعة", newWords: "كلمات جديدة", masteredWords: "كلمات مُتقنة", timeSpent: "الوقت المستغرق", minutes: "دقيقة", totalWords: "إجمالي الكلمات", totalTime: "إجمالي الوقت", changePic: "تغيير الصورة", errorOccurred: "حدث خطأ", wordsAdded: "كلمات مضافة", gamesPlayed: "ألعاب لُعبت", accuracy: "الدقة", streak: "أيام متتالية", noActivity: "لا يوجد نشاط بعد", noActivityDesc: "ابدأ بمراجعة البطاقات لرؤية إحصائياتك الحقيقية!", reviewedToday: "تمت مراجعته اليوم", translate: "ترجمة تلقائية", translatedSuccess: "تمت الترجمة ✓", translationFailed: "فشل الترجمة" },
+en: { appName: "VOCAflow Pro", tagline: "Learn words the fun way ✨", selectSet: "Select Set", createSet: "Create New Set", search: "Search...", edit: "Edit", delete: "Delete", cancel: "Cancel", save: "Save", setName: "Set name", firstLang: "First language", secondLang: "Second language", games: "Games", gamesDesc: "Choose your game and start playing! 🚀", flashcards: "Flashcards", mcq: "Multiple Choice", spelling: "Spelling", matching: "Matching", sanctuary: "Your Sanctuary", sanctuarySubtitle: "Precious words in safety", preciousWords: "precious words", preciousWordSingular: "precious word", playSanctuary: "Play Sanctuary", guest: "Guest", guestNote: "Data saved locally only.", welcomeBack: "Welcome back", welcomeGuest: "Welcome", level: "Level", today: "Today", saved: "Saved", settings: "Settings", logout: "Logout", login: "Login", name: "Name", email: "Email", close: "Close", correct: "Correct", wrong: "Wrong", results: "Results", retry: "Retry All", retryWrong: "Retry Wrong Only", home: "Home", noSet: "No sets", noWords: "No words", needSelectSet: "Please select a set first", created: "Set created 🎉", deleted: "Deleted", savedMsg: "Saved ✓", addWord: "Add word", word: "Word", translation: "Translation", add: "Add", noSaved: "No saved words", tapToFlip: "Tap to flip", check: "Check", typeWord: "Type the word...", listenWrite: "Listen and write", matchPairs: "Match the pairs", time: "Time", score: "Score", correctAnswers: "Correct answers", wrongWords: "Wrong words", excellent: "Excellent! 🌟", good: "Very good! 👏", fair: "Good! 👍", tryAgain: "Try again 💪", msgExcellent: "You're a star! ✨", msgGood: "Great job! 🎯", msgFair: "Good effort 📚", msgTryAgain: "Don't give up! 💪", of: "of", card: "Card", question: "Question", words: "words", confirmDeleteSet: "Delete this set?", confirmDeleteWord: "Delete this word?", back: "Back", editor: "Editor", translating: "Translating...", darkMode: "Dark Mode", lightMode: "Light Mode", theme: "Theme", voiceSettings: "Voice Settings", speechRate: "Speech Rate", pitch: "Pitch", language: "Language", exportData: "Export Data", importData: "Import Data", resetAll: "Reset All Data", confirmReset: "Delete ALL data?", dataExported: "Data exported ✓", dataImported: "Data imported ✓", invalidFile: "Invalid file", stats: "Stats", annualDetails: "Annual Details", weeklySummary: "📚 {words} words this week · ⏱ {time}", wordsThisYear: "words this year", timeThisYear: "time this year", daysStreak: "days", reviewedWords: "Reviewed words", newWords: "New words", masteredWords: "Mastered words", timeSpent: "Time spent", minutes: "min", totalWords: "Total Words", totalTime: "Total Time", changePic: "Change Picture", errorOccurred: "An error occurred", wordsAdded: "Words Added", gamesPlayed: "Games Played", accuracy: "Accuracy", streak: "Day Streak", noActivity: "No activity yet", noActivityDesc: "Start reviewing cards to see your real stats here!", reviewedToday: "Reviewed today", translate: "Auto Translate", translatedSuccess: "Translated ✓", translationFailed: "Translation failed" },
+fr: { appName: "VOCAflow Pro", tagline: "Apprenez les mots ✨", selectSet: "Choisir", createSet: "Créer", search: "Rechercher...", edit: "Modifier", delete: "Supprimer", cancel: "Annuler", save: "Enregistrer", setName: "Nom", firstLang: "Première langue", secondLang: "Deuxième langue", games: "Jeux", gamesDesc: "Choisissez votre jeu ! 🚀", flashcards: "Cartes", mcq: "QCM", spelling: "Orthographe", matching: "Associer", sanctuary: "Sanctuaire", sanctuarySubtitle: "Mots précieux", preciousWords: "mots précieux", preciousWordSingular: "mot précieux", playSanctuary: "Jouer", guest: "Invité", guestNote: "Données locales.", welcomeBack: "Bon retour", welcomeGuest: "Bienvenue", level: "Niveau", today: "Aujourd'hui", saved: "Sauvegardé", settings: "Paramètres", logout: "Déconnexion", login: "Connexion", name: "Nom", email: "Email", close: "Fermer", correct: "Correct", wrong: "Faux", results: "Résultats", retry: "Recommencer", retryWrong: "Incorrects", home: "Accueil", noSet: "Aucun ensemble", noWords: "Aucun mot", needSelectSet: "Sélectionnez un ensemble", created: "Créé 🎉", deleted: "Supprimé", savedMsg: "Enregistré ✓", addWord: "Ajouter", word: "Mot", translation: "Traduction", add: "Ajouter", noSaved: "Aucun mot", tapToFlip: "Retourner", check: "Vérifier", typeWord: "Écrivez...", listenWrite: "Écoutez et écrivez", matchPairs: "Associez", time: "Temps", score: "Score", correctAnswers: "Bonnes réponses", wrongWords: "Incorrects", excellent: "Excellent ! 🌟", good: "Très bien ! 👏", fair: "Bien ! 👍", tryAgain: "Réessayez 💪", msgExcellent: "Vous êtes une star !", msgGood: "Bon travail !", msgFair: "Bon effort", msgTryAgain: "N'abandonnez pas !", of: "de", card: "Carte", question: "Question", words: "mots", confirmDeleteSet: "Supprimer ?", confirmDeleteWord: "Supprimer ?", back: "Retour", editor: "Éditeur", translating: "Traduction...", darkMode: "Nuit", lightMode: "Jour", theme: "Thème", voiceSettings: "Voix", speechRate: "Vitesse", pitch: "Tonalité", language: "Langue", exportData: "Exporter", importData: "Importer", resetAll: "Tout effacer", confirmReset: "Tout effacer ?", dataExported: "Exporté ✓", dataImported: "Importé ✓", invalidFile: "Invalide", stats: "Stats", annualDetails: "Détails annuels", weeklySummary: "📚 {words} mots cette semaine · ⏱ {time}", wordsThisYear: "mots cette année", timeThisYear: "temps cette année", daysStreak: "jours", reviewedWords: "Mots révisés", newWords: "Nouveaux mots", masteredWords: "Mots maîtrisés", timeSpent: "Temps passé", minutes: "min", totalWords: "Total", totalTime: "Temps Total", changePic: "Changer", errorOccurred: "Erreur", wordsAdded: "Mots ajoutés", gamesPlayed: "Parties jouées", accuracy: "Précision", streak: "Jours consécutifs", noActivity: "Aucune activité", noActivityDesc: "Commencez à réviser pour voir vos vraies stats !", reviewedToday: "Révisés aujourd'hui", translate: "Traduire", translatedSuccess: "Traduit ✓", translationFailed: "Échec de la traduction" }
 };
 const I18nContext = createContext();
 function I18nProvider({ children }) {
@@ -1048,6 +1008,7 @@ if (window.speechSynthesis) window.speechSynthesis.cancel();
 if (audioRef.current) { audioRef.current.pause(); audioRef.current = null; }
 const cleanText = text.trim();
 const mappedLang = lang === "ar" ? "ar-SA" : lang === "en" ? "en-US" : lang === "fr" ? "fr-FR" : lang === "es" ? "es-ES" : lang === "de" ? "de-DE" : lang === "pt" ? "pt-PT" : lang === "ja" ? "ja-JP" : lang;
+// Try Google TTS first for Arabic (best quality)
 if (lang === "ar") {
 const googleTTS = () => {
 const audio = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&tl=ar&client=tw-ob&q=${encodeURIComponent(cleanText)}`);
@@ -1058,7 +1019,11 @@ audio.onended = () => setSpeaking(false);
 audio.onerror = () => {
 audioRef.current = null;
 setSpeaking(false);
-speakWithSpeechSynthesis(cleanText, "ar-SA", options, () => {});
+// Fallback to speechSynthesis with explicit Arabic voice selection
+speakWithSpeechSynthesis(cleanText, "ar-SA", options, () => {
+// If speechSynthesis also fails, show error toast
+console.warn("Arabic TTS failed");
+});
 };
 audio.play().catch(() => {
 audioRef.current = null;
@@ -1068,6 +1033,7 @@ speakWithSpeechSynthesis(cleanText, "ar-SA", options);
 googleTTS();
 return;
 }
+// For non-Arabic, use speechSynthesis
 speakWithSpeechSynthesis(cleanText, mappedLang, options);
 }, [defaultRate, defaultPitch, speakWithSpeechSynthesis]);
 return { speakText, speaking };
@@ -1479,9 +1445,6 @@ return (
 </div>
 );
 }
-/* ============================================= */
-/* FLASHCARDS GAME — DUAL CARD VERSION           */
-/* ============================================= */
 function FlashcardsGame({ set, savedIds, onToggleSaved, onFinish, onExit, voiceSettings, onReview, onGameComplete }) {
 const { t } = useI18n();
 const { speakText, speaking } = useSpeech(voiceSettings.rate, voiceSettings.pitch);
@@ -1491,7 +1454,6 @@ const cards = useMemo(() => isSanctuary ? initialCards : initialCards.filter(w =
 const [idx, setIdx] = useState(0);
 const [showTranslation, setShowTranslation] = useState(false);
 const [results, setResults] = useState([]);
-const [isFlipping, setIsFlipping] = useState(false);
 const [isAnswering, setIsAnswering] = useState(false);
 const card = cards[idx];
 useEffect(() => {
@@ -1504,11 +1466,7 @@ setIdx(cards.length - 1);
 }
 }
 }, [cards.length, idx]);
-useEffect(() => {
-setShowTranslation(false);
-setIsFlipping(false);
-setIsAnswering(false);
-}, [idx]);
+useEffect(() => { setShowTranslation(false); setIsAnswering(false); }, [idx]);
 const cardLang1 = card?.lang1 || set.lang1;
 const cardLang2 = card?.lang2 || set.lang2;
 const speakFront = useCallback(() => {
@@ -1517,13 +1475,6 @@ if (card) speakText(card.word, cardLang1);
 const speakBack = useCallback(() => {
 if (card) speakText(card.translation, cardLang2);
 }, [card, cardLang2, speakText]);
-const handleFrenchClick = () => {
-if (isFlipping || isAnswering) return;
-setShowTranslation(prev => !prev);
-};
-const handleArabicClick = () => {
-if (card) speakBack();
-};
 if (!card) return (
 <div className="glass results-box">
 <p>{t("noWords")}</p>
@@ -1532,8 +1483,17 @@ if (!card) return (
 );
 const l1 = getLang(cardLang1);
 const l2 = getLang(cardLang2);
+const handleFrenchClick = () => {
+if (isAnswering) return;
+setShowTranslation(prev => !prev);
+};
+const handleArabicClick = (e) => {
+e.stopPropagation();
+if (isAnswering) return;
+speakBack();
+};
 const answer = (ok) => {
-if (isAnswering || isFlipping) return;
+if (isAnswering) return;
 setIsAnswering(true);
 if (onReview) onReview(ok);
 const newResults = [...results, { id: card.id, correct: ok, word: card.word, translation: card.translation }];
@@ -1562,36 +1522,33 @@ return (
 </div>
 <div className="progress-bar"><div className="progress-fill" style={{ width: progress + "%" }} /></div>
 <div className="dual-card-container">
-{/* French card — always visible */}
-<div className="card-french" onClick={handleFrenchClick}>
+<div className="dual-card dual-card-french" onClick={handleFrenchClick}>
 <div className="card-top-actions">
-<button type="button" className={`card-round-btn ${isSaved ? 'saved' : ''}`} onClick={(e) => { e.stopPropagation(); onToggleSaved(card.id); }} aria-label="Save">
-<BookmarkIcon filled={isSaved} size={16} />
+<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(card.id); }}>
+<BookmarkIcon filled={isSaved} />
 </button>
 <span className="card-chip">{idx + 1}/{cards.length}</span>
-<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); speakFront(); }} aria-label="Pronounce" style={{ backgroundColor: speaking ? 'rgba(255,255,255,0.35)' : '' }}>
-<SpeakerIcon active={speaking} size={16} />
+<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); speakFront(); }} style={{ backgroundColor: speaking ? 'rgba(255,255,255,0.5)' : '' }}>
+<SpeakerIcon active={speaking} />
 </button>
 </div>
 <div className="card-lang-label">{l1.flag} {l1.name}</div>
 <div className="card-word" dir={l1.dir}>{card.word}</div>
-<div className="card-hint">👆 {t("tapToFlip")}</div>
+<div className="card-hint">✨ {t("tapToFlip")}</div>
 </div>
-{/* Arabic card — conditionally visible */}
 {showTranslation && (
-<div className="card-arabic" onClick={handleArabicClick}>
+<div className="dual-card dual-card-arabic" onClick={handleArabicClick}>
 <div className="card-top-actions">
-<button type="button" className={`card-round-btn ${isSaved ? 'saved' : ''}`} onClick={(e) => { e.stopPropagation(); onToggleSaved(card.id); }} aria-label="Save">
-<BookmarkIcon filled={isSaved} size={16} />
+<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); speakBack(); }} style={{ backgroundColor: speaking ? 'rgba(255,255,255,0.5)' : '' }}>
+<SpeakerIcon active={speaking} />
 </button>
 <span className="card-chip">{idx + 1}/{cards.length}</span>
-<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); speakBack(); }} aria-label="Pronounce" style={{ backgroundColor: speaking ? 'rgba(255,255,255,0.35)' : '' }}>
-<SpeakerIcon active={speaking} size={16} />
+<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(card.id); }}>
+<BookmarkIcon filled={isSaved} />
 </button>
 </div>
 <div className="card-lang-label">{l2.flag} {l2.name}</div>
 <div className="card-translation" dir={l2.dir}>{card.translation}</div>
-<div className="card-hint">🔊 {t("tapToFlip")}</div>
 </div>
 )}
 </div>
