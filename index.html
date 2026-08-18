@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -348,6 +349,21 @@ color: white;
 background: linear-gradient(145deg, #F093FB 0%, #F5576C 100%);
 color: white;
 animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* ============================================= */
+/* SINGLE CARD MODE (بطاقة واحدة)                */
+/* ============================================= */
+.single-card-mode {
+width: 100%;
+max-width: 420px;
+justify-content: center;
+gap: 0;
+}
+.single-card-mode .dual-card {
+max-width: 100%;
+width: 100%;
+min-height: 360px;
+animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .dual-card:active {
 transform: scale(0.97);
@@ -1011,24 +1027,27 @@ const mappedLang = lang === "ar" ? "ar-SA" : lang === "en" ? "en-US" : lang === 
 // Try Google TTS first for Arabic (best quality)
 if (lang === "ar") {
 const googleTTS = () => {
+let fellBack = false; // flag to prevent double fallback
+const fallback = () => {
+if (!fellBack) {
+fellBack = true;
+audioRef.current = null;
+setSpeaking(false);
+speakWithSpeechSynthesis(cleanText, "ar-SA", options, () => {
+console.warn("Arabic TTS failed");
+});
+}
+};
 const audio = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&tl=ar&client=tw-ob&q=${encodeURIComponent(cleanText)}`);
 audioRef.current = audio;
 audio.playbackRate = options.rate !== undefined ? options.rate : defaultRate;
 audio.onplay = () => setSpeaking(true);
-audio.onended = () => setSpeaking(false);
-audio.onerror = () => {
+audio.onended = () => {
 audioRef.current = null;
 setSpeaking(false);
-// Fallback to speechSynthesis with explicit Arabic voice selection
-speakWithSpeechSynthesis(cleanText, "ar-SA", options, () => {
-// If speechSynthesis also fails, show error toast
-console.warn("Arabic TTS failed");
-});
 };
-audio.play().catch(() => {
-audioRef.current = null;
-speakWithSpeechSynthesis(cleanText, "ar-SA", options);
-});
+audio.onerror = fallback;
+audio.play().catch(fallback);
 };
 googleTTS();
 return;
@@ -1475,6 +1494,14 @@ if (card) speakText(card.word, cardLang1);
 const speakBack = useCallback(() => {
 if (card) speakText(card.translation, cardLang2);
 }, [card, cardLang2, speakText]);
+const handleCardClick = () => {
+if (isAnswering) return;
+setShowTranslation(prev => !prev);
+};
+const speakCurrent = () => {
+if (showTranslation) speakBack();
+else speakFront();
+};
 if (!card) return (
 <div className="glass results-box">
 <p>{t("noWords")}</p>
@@ -1483,15 +1510,6 @@ if (!card) return (
 );
 const l1 = getLang(cardLang1);
 const l2 = getLang(cardLang2);
-const handleFrenchClick = () => {
-if (isAnswering) return;
-setShowTranslation(prev => !prev);
-};
-const handleArabicClick = (e) => {
-e.stopPropagation();
-if (isAnswering) return;
-speakBack();
-};
 const answer = (ok) => {
 if (isAnswering) return;
 setIsAnswering(true);
@@ -1521,36 +1539,23 @@ return (
 <button type="button" className="icon-btn" onClick={() => answer(false)} aria-label="Skip"><SkipIcon /></button>
 </div>
 <div className="progress-bar"><div className="progress-fill" style={{ width: progress + "%" }} /></div>
-<div className="dual-card-container">
-<div className="dual-card dual-card-french" onClick={handleFrenchClick}>
+<div className="dual-card-container single-card-mode">
+<div className={`dual-card ${showTranslation ? 'dual-card-arabic' : 'dual-card-french'}`} onClick={handleCardClick}>
 <div className="card-top-actions">
 <button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(card.id); }}>
 <BookmarkIcon filled={isSaved} />
 </button>
 <span className="card-chip">{idx + 1}/{cards.length}</span>
-<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); speakFront(); }} style={{ backgroundColor: speaking ? 'rgba(255,255,255,0.5)' : '' }}>
+<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); speakCurrent(); }} style={{ backgroundColor: speaking ? 'rgba(255,255,255,0.5)' : '' }}>
 <SpeakerIcon active={speaking} />
 </button>
 </div>
-<div className="card-lang-label">{l1.flag} {l1.name}</div>
-<div className="card-word" dir={l1.dir}>{card.word}</div>
+<div className="card-lang-label">{showTranslation ? `${l2.flag} ${l2.name}` : `${l1.flag} ${l1.name}`}</div>
+<div className={showTranslation ? "card-translation" : "card-word"} dir={showTranslation ? l2.dir : l1.dir}>
+{showTranslation ? card.translation : card.word}
+</div>
 <div className="card-hint">✨ {t("tapToFlip")}</div>
 </div>
-{showTranslation && (
-<div className="dual-card dual-card-arabic" onClick={handleArabicClick}>
-<div className="card-top-actions">
-<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); speakBack(); }} style={{ backgroundColor: speaking ? 'rgba(255,255,255,0.5)' : '' }}>
-<SpeakerIcon active={speaking} />
-</button>
-<span className="card-chip">{idx + 1}/{cards.length}</span>
-<button type="button" className="card-round-btn" onClick={(e) => { e.stopPropagation(); onToggleSaved(card.id); }}>
-<BookmarkIcon filled={isSaved} />
-</button>
-</div>
-<div className="card-lang-label">{l2.flag} {l2.name}</div>
-<div className="card-translation" dir={l2.dir}>{card.translation}</div>
-</div>
-)}
 </div>
 <div className="card-dots">
 {cards.slice(0, Math.min(cards.length, 30)).map((c, i) => (
@@ -2600,3 +2605,4 @@ ReactDOM.createRoot(document.getElementById("root")).render(<Root />);
 </script>
 </body>
 </html>
+
